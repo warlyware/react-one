@@ -1,8 +1,10 @@
 var Hello = React.createClass({
   getInitialState: function() {
-    return {greeting: 'Welcome', name: 'State'};
+    return { users: [] };
   },
   greet: function() {
+    var currentUser = this.state.users;
+    currentUser.push(this.refs.name2greet.value);
     this.setState(
       {greeting: 'Hello', name: this.refs.name2greet.value},
       function() {
@@ -21,11 +23,19 @@ var Hello = React.createClass({
     console.log('Goin to unmount now...');
   },
   render: function() {
+    var usersLI = this.state.users.map(function(user) {
+      return (
+          <li>Hello {user}</li>
+        )
+    });
     return (
       <div>
         <input placeholder="Name" ref="name2greet" />
         <button onClick={this.greet}>Greet</button>
-        {this.state.greeting} {this.state.name}
+        <hr />
+        <ul>
+          {usersLI}
+        </ul>
       </div>
     );
   }
